@@ -1,0 +1,154 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    
+
+    <div class="whiteback">
+
+    <div>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-info {{ message.tags }}"{% endif %}>{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="title padding">
+        <h2>{{ listing.title }}</h1>
+        
+    </div>
+
+    
+    <div class="padding">
+        <div>
+            Category: <b>{{ listing.category }}</b>
+        </div>
+        <div>
+            Sold by: <b>{{ listing.creatorUser }}</b>
+        </div>
+    </div>
+
+    <div class="listingBidding">
+
+        <div>
+            <img src="{{ listing.img_url|default:'../../static/auctions/NoImageFound.jpg.png' }}" alt="Product IMG" style="width: 500px;">
+        </div>
+
+        <div class="padding">
+            <div>
+                Starting Bid: {{ listing.starting_bid }}
+            </div>
+            <div>
+                Current Bid: {{ listing.current_bid }}
+            </div>
+            {% if user.is_authenticated %}
+                {% if active %}
+                    {% if creator %}
+                        <div>
+                            <form action="{% url 'endBid' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="listingID" value="{{ listing.id }}">
+                                <input type="submit" class='submitEnd' name="endBid" value="End this Bid!">
+                            </form>
+                        </div>
+                    {% else %}
+                        <div>
+                            <form action="{% url 'listingUpdates' %}" method="POST">
+                                {% csrf_token %}
+                                Bid for this product:
+                                <input type="hidden" name="listingID" value="{{ listing.id }}">
+                                <input name="newBid" class='submitWidth' type="number">
+                                <input type="submit" value="Submit">
+                            </form>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if buyer %}
+                        Congratulations! You have won the auction!
+                    {% else %}
+                        This Auction is alredy over.
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                {% if watched %}
+                    <form action="{% url 'watchList' %}" method="POST" class="paddingTOP">
+                        {% csrf_token %}
+                        <input type="hidden" name="listingID" value="{{ listing.id }}">
+                        <input type="submit" class='submitWatch' name="removeWatchlist" value="Remove from my watchlist!">
+                    </form>
+                {% else %}
+                    <form action="{% url 'watchList' %}" method="POST" class="paddingTOP">
+                        {% csrf_token %}
+                        <input type="hidden" name="listingID" value="{{ listing.id }}">
+                        <input type="submit" class='submitWatch' name="addWatchlist" value="Add to my watchlist!">
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
+    
+    <div>
+        <b><i>Description:</b></i>
+        <div>
+            {{ listing.description}}
+        </div>
+    </div>
+
+
+
+    <div class="newComment">
+        Have some question or want to review this item? Leave a comment:
+        <div>
+            <form action="{% url 'newComment' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="listingID" value="{{ listing.id }}">
+                <textarea name="comment" type="text" placeholder="Your Comment/Review" id="inputComment" cols="50" rows="4"></textarea>
+                <div>
+                    <input type="submit" value="Submit" style="margin-top: 6px;">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    {% for comment in comments %}
+    <div class="comment-thread">
+        <!-- Comment 1 start -->
+        <div class="comment" id="comment-1">
+            <div class="comment-heading">
+                <div class="comment-voting">
+                    <button type="button">
+                        <span aria-hidden="true">&#9650;</span>
+                        <span class="sr-only">Vote up</span>
+                    </button>
+                    <button type="button">
+                        <span aria-hidden="true">&#9660;</span>
+                        <span class="sr-only">Vote down</span>
+                    </button>
+                </div>
+                <div class="comment-info">
+                    <a href="#" class="comment-author">{{ comment.user }}</a>
+                    <p class="m-0">
+                        said &bull; 
+                    </p>
+                </div>
+            </div>
+    
+            <div class="comment-body">
+                <p>
+                    {{ comment.comment}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Comment 1 end -->
+    {% endfor %}
+</div>
+
+{% endblock %}

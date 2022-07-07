@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+Choose the category you want to search:
+{% for category in categories %}
+
+<div>
+    <a href="categories/{{ category }}">{{ category }}</a>
+</div>
+
+{% endfor %}
+
+
+
+
+
+
+{% endblock %}

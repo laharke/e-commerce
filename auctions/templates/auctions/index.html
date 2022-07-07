@@ -1,0 +1,44 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% if category %}
+    <h3> on the {{ category }} category</h3>
+    {% endif %}
+    
+
+    <!---
+        Acá voy a tener todas las listings, tendria que mandar desde python una lista de diccionarios, donde voy a tener toda la info
+        por ejemplo sería: listings = [{id: 1, title: "Playstation", description:"Consola videojuegos", starting_bid: 200, url:".com"}, 
+        {id: 2, title: "Escoba ", description:"Nimbus 200", starting_bid: "300", url:".com"}]
+        Una vez tenga esa info acá, loopeo en unas cards de boostrap y relleno toda la info
+        Tambien tendria que agregar un link que al hacerle click, te lleve al ACTIVE LISTING, pero esto es DSP, por ahora dejo el link vacio
+        Esto es porque voy a tenr que hacer eso que hice en la wiki de poner entry/<int>  y va cambiando con cada una de las entries
+        Ejemplos de como acceder al query set que mando
+        {{ listing.0 }}
+        {{ listing.0.title }}
+        {{ listing.1 }}
+        {{ listing.1.id }}
+    --->
+    
+    
+    <div id="cartas">
+        {% for item in listing %}
+        
+            
+            <div class="card" style="width: 18rem; margin-left: 10px; margin-top: 10px;">
+                <img class="card-img-top" src="{{ item.img_url|default:'../../static/auctions/NoImageFound.jpg.png' }}" alt="Product IMG">
+                <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                {% if item.current_bid == 0.0 %}
+                    <h3 class="card-title">${{ item.starting_bid }}</h5>
+                {% else %}
+                    <h3 class="card-title">${{ item.current_bid }}</h5>
+                {% endif %}
+                <p class="card-text">{{ item.description }}</p>
+                <a href="../listing/{{ item.id }}" class="btn btn-primary">Check item</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

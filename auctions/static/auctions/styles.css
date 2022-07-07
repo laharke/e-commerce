@@ -1,0 +1,121 @@
+body {
+    padding: 2px;
+    background: antiquewhite;
+}
+
+.padding{
+    padding: 10px;
+}
+
+.paddingTOP{
+    margin-top: 5px;
+}
+
+.whiteback {
+    background: #fff;
+}
+
+
+.newEntryForm {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+#cartas {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.submitWatch {
+    background: #016ABC;
+    color: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
+}
+.submitWatch:hover {
+    background: #32994c;
+    color: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
+}
+
+.submitWidth {
+    width: 100px;
+}
+
+.title{
+    color: rgb(66, 111, 179);
+}
+
+.submitEnd {
+    background: #5a0808;
+    color: rgb(255, 255, 255);
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
+}
+.submitEnd:hover {
+    background: #aa1111;
+    color: rgb(248, 248, 248);
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
+}
+
+.listingBidding {
+    display: flex;
+    margin-left: 15px;
+}
+
+
+.newComment {
+    margin-top: 30px;
+}
+
+
+.comment {
+    position: relative;
+    margin: 20px auto;
+}
+.comment-heading {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    font-size: 14px;
+}
+.comment-voting {
+    width: 20px;
+    height: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+.comment-voting button {
+    display: block;
+    width: 100%;
+    height: 50%;
+    padding: 0;
+    border: 0;
+    font-size: 10px;
+}
+.comment-info {
+    color: rgba(0, 0, 0, 0.5);
+    margin-left: 10px;
+}
+.comment-author {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: bold;
+    text-decoration: none;
+}
+.comment-author:hover {
+    text-decoration: underline;
+}
+.replies {
+    margin-left: 20px;
+}
